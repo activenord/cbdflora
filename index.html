@@ -250,4 +250,11 @@
                 document.body.style.overflow = 'auto'; // Återaktivera rullning
             } else {
                 // Om åldersverifiering inte är godkänd, visa overlayn direkt
-                document.getElementById('age-verification-overlay').style
+                document.getElementById('age-verification-overlay').style.visibility = 'visible';
+                document.getElementById('age-verification-overlay').style.opacity = '1';
+                document.body.style.overflow = 'hidden'; // Förhindra rullning
+            }
+        });
+    </script>
+</body>
+</html>
