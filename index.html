@@ -27,6 +27,7 @@
             z-index: 9999;
             visibility: visible;
             opacity: 1;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
         }
 
         .verification-content {
@@ -37,11 +38,12 @@
             max-width: 400px;
             text-align: center;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 0.5s ease-in-out;
         }
 
         .verification-content h2 {
             color: #8EBF2A;
-            font-size: 1.8rem;
+            font-size: 2rem;
             margin-bottom: 20px;
             font-weight: 600;
         }
@@ -61,6 +63,7 @@
             border-radius: 25px;
             cursor: pointer;
             width: 100%;
+            margin-bottom: 10px;
             transition: background-color 0.3s ease;
         }
 
@@ -68,12 +71,34 @@
             background-color: #6A9C22;
         }
 
-        /* Footer */
-        footer {
-            background-color: #333;
-            color: #fff;
-            text-align: center;
-            padding: 20px;
+        /* Animation for the overlay */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Responsivitet */
+        @media (max-width: 600px) {
+            .verification-content {
+                width: 85%;
+            }
+
+            .verification-content h2 {
+                font-size: 1.6rem;
+            }
+
+            .verification-content p {
+                font-size: 1rem;
+            }
+
+            .verification-content button {
+                font-size: 1rem;
+                padding: 12px 25px;
+            }
         }
     </style>
 </head>
@@ -82,25 +107,37 @@
     <!-- Åldersverifiering overlay -->
     <div id="age-verification-overlay">
         <div class="verification-content">
-            <img src="https://cdn.shopify.com/s/files/1/0875/8788/1305/files/cbdFlora.webp?v=1745136036" alt="cbdFlora logo" style="max-width: 150px; margin-bottom: 20px;">
-            <h2>Välkommen till cbdFlora®</h2>
+            <h2>Välkommen</h2>
             <p>Du måste vara 18 år eller äldre för att fortsätta.</p>
+            <!-- Knappar för att bekräfta ålder eller lämna sidan -->
             <button onclick="confirmAge()">Jag är 18 år eller äldre</button>
+            <button onclick="leaveSite()">Jag är under 18 år</button>
         </div>
     </div>
-
-    <footer>
-        <p>&copy; 2025 cbdFlora®. Alla rättigheter förbehållna.</p>
-    </footer>
 
     <script>
         // När användaren bekräftar sin ålder
         function confirmAge() {
-            // Ta bort åldersverifieringsoverlayen
-            document.getElementById('age-verification-overlay').style.display = 'none';
-            
+            // Ta bort åldersverifieringsoverlayen med en mjuk övergång
+            let overlay = document.getElementById('age-verification-overlay');
+            overlay.style.opacity = '0';
+            setTimeout(function() {
+                overlay.style.visibility = 'hidden';
+            }, 500); // Vänta tills animationen är klar innan overlay tas bort
+
             // Skicka användaren vidare till den valda sidan
-            window.location.href = "https://cbdflora.se/collections/cbd-olja"; // Ändra länken här om det behövs
+            window.location.href = "https://example.com"; // Byt ut länken här om det behövs
+        }
+
+        // När användaren inte är 18 år eller äldre, lämnar sidan
+        function leaveSite() {
+            // Ta bort åldersverifieringsoverlayen med en mjuk övergång
+            let overlay = document.getElementById('age-verification-overlay');
+            overlay.style.opacity = '0';
+            setTimeout(function() {
+                overlay.style.visibility = 'hidden';
+                window.location.href = "https://www.google.com"; // Skicka användaren till Google
+            }, 500); // Vänta tills animationen är klar innan sidan lämnas
         }
     </script>
 
