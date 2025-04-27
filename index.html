@@ -37,7 +37,8 @@
             width: 90%;
             max-width: 400px;
             text-align: center;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2), 0 0 10px rgba(0, 0, 0, 0.1);
+            border: 2px solid #ccc; /* Grå kant */
             animation: fadeIn 0.5s ease-in-out;
         }
 
@@ -67,11 +68,25 @@
             transition: background-color 0.3s ease;
         }
 
-        .verification-content button:hover {
+        /* Ändra stil på knappen för minderåriga */
+        .verification-content .leave-button {
+            background-color: #f44336;
+            color: white;
+            border-radius: 25px;
+            font-size: 1.2rem;
+            padding: 15px 30px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Hover-effekt på båda knapparna */
+        .verification-content button:hover,
+        .verification-content .leave-button:hover {
             background-color: #6A9C22;
         }
 
-        /* Animation for the overlay */
+        /* Animation för overlay */
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -95,7 +110,8 @@
                 font-size: 1rem;
             }
 
-            .verification-content button {
+            .verification-content button,
+            .verification-content .leave-button {
                 font-size: 1rem;
                 padding: 12px 25px;
             }
@@ -111,7 +127,7 @@
             <p>Du måste vara 18 år eller äldre för att fortsätta.</p>
             <!-- Knappar för att bekräfta ålder eller lämna sidan -->
             <button onclick="confirmAge()">Jag är 18 år eller äldre</button>
-            <button onclick="leaveSite()">Jag är under 18 år</button>
+            <button class="leave-button" onclick="leaveSite()">Jag är under 18 år</button>
         </div>
     </div>
 
