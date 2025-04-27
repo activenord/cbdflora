@@ -16,7 +16,7 @@
 
         /* Header */
         header {
-            background-color: #3C9B3B; /* Grön som varumärket */
+            background-color: #8EBF2A; /* Grön som varumärket */
             color: #fff;
             text-align: center;
             padding: 80px 20px;
@@ -74,7 +74,7 @@
         }
 
         input[type="submit"] {
-            background-color: #3C9B3B; /* Grön */
+            background-color: #8EBF2A; /* Grön */
             color: #fff;
             padding: 15px 30px;
             font-size: 1.2em;
@@ -86,7 +86,7 @@
         }
 
         input[type="submit"]:hover {
-            background-color: #2b7a2b;
+            background-color: #6a9c22;
         }
 
         /* Footer */
@@ -100,15 +100,6 @@
         footer p {
             margin: 0;
             font-size: 1em;
-        }
-
-        footer a {
-            color: #fff;
-            text-decoration: none;
-        }
-
-        footer a:hover {
-            text-decoration: underline;
         }
 
         /* Media queries för mobil */
@@ -125,6 +116,88 @@
                 padding: 12px;
                 font-size: 1em;
             }
+        }
+
+        /* Åldersverifiering Overlay */
+        #age-verification-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.7); /* Genomskinlig vit bakgrund */
+            backdrop-filter: blur(10px); /* Lägg till oskärpa på bakgrunden */
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            font-family: 'Helvetica Neue', sans-serif;
+            visibility: hidden; /* Starta som osynlig */
+            opacity: 0; /* Starta osynlig */
+            transition: opacity 0.2s ease-out; /* Snabbare transition */
+        }
+
+        #age-verification-overlay .container {
+            background: #f9f9f9;
+            padding: 2.5rem 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            max-width: 420px;
+            width: 90%;
+        }
+
+        #age-verification-overlay h2 {
+            font-size: 1.8rem;
+            color: #8EBF2A;
+            margin-bottom: 1rem;
+            font-weight: medium;
+        }
+
+        #age-verification-overlay p {
+            margin-bottom: 1.5rem;
+            color: #444;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        /* Knappsektion */
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .buttons button {
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+        }
+
+        .buttons button.confirm {
+            background-color: #8EBF2A;
+            color: white;
+            border: none;
+        }
+
+        .buttons button.confirm:hover {
+            background-color: #6a9c22;
+        }
+
+        .buttons button.decline {
+            background-color: #eee;
+            color: #555;
+            border: 1px solid #ccc;
+        }
+
+        .buttons button.decline:hover {
+            background-color: #ddd;
         }
     </style>
 </head>
@@ -152,18 +225,50 @@
 
     <!-- Footer -->
     <footer>
-        <p>&copy; 2025 cbdFlora® - Alla rättigheter förbehållna. <a href="https://cbdflora.se/collections/cbd-olja">Köp CBD-olja här</a></p>
+        <p>&copy; 2025 cbdFlora® - Alla rättigheter förbehållna.</p>
     </footer>
 
+    <!-- Åldersverifiering Overlay -->
+    <div id="age-verification-overlay">
+        <div class="container">
+            <img src="https://cdn.shopify.com/s/files/1/0875/8788/1305/files/cbdFlora.webp?v=1745136036" alt="cbdFlora logotyp" style="max-width: 150px; margin: 0 auto 1.5rem auto;">
+            <h2>Hej och välkommen!</h2>
+            <p>Du måste vara minst 18 år för att besöka vår webbplats.</p>
+            <div class="buttons">
+                <button class="confirm" onclick="confirmAge()">Jag är 18 år eller äldre</button>
+                <button class="decline" onclick="leaveSite()">Nej, lämna sidan</button>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // Förhindra formulärsändning om inte 18 år eller äldre bekräftas
-        document.getElementById('age-verification-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            if (document.getElementById('ageConfirmation').checked) {
-                // Skicka användaren vidare till CBD-olja-sidan
-                window.location.href = 'https://cbdflora.se/collections/cbd-olja';
+        // Kontrollera om åldersverifieringen redan är godkänd
+        function confirmAge() {
+            localStorage.setItem('ageVerified', 'true');
+            document.getElementById('age-verification-overlay').style.opacity = '0'; // Göm overlay snabbt
+            setTimeout(function() {
+                document.getElementById('age-verification-overlay').style.visibility = 'hidden'; // Göm helt efter animationen
+                document.body.style.overflow = 'auto'; // Återaktivera rullning
+            }, 200); // Samma tid som transitionen (200ms)
+        }
+
+        function leaveSite() {
+            window.location.href = "https://www.google.com"; // ← Ändra till valfri extern sida
+        }
+
+        window.addEventListener('load', function () {
+            const isVerified = localStorage.getItem('ageVerified');
+            
+            // Om åldern redan är verifierad, döljs åldersverifieringen direkt
+            if (isVerified) {
+                document.getElementById('age-verification-overlay').style.visibility = 'hidden'; // Döljer direkt
+                document.getElementById('age-verification-overlay').style.opacity = '0'; // Gör den osynlig direkt
+                document.body.style.overflow = 'auto'; // Återaktivera rullning
             } else {
-                alert('Du måste vara 18 år eller äldre för att fortsätta.');
+                // Om åldersverifiering inte är godkänd, visa overlayn direkt
+                document.getElementById('age-verification-overlay').style.visibility = 'visible';
+                document.getElementById('age-verification-overlay').style.opacity = '1'; // Gör den synlig direkt
+                document.body.style.overflow = 'hidden'; // Förhindra rullning tills verifiering är gjord
             }
         });
     </script>
