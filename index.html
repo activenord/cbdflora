@@ -9,7 +9,7 @@
             margin: 0;
             padding: 0;
             font-family: 'Arial', sans-serif;
-            background-color: #f1f1f1;
+            background-color: #ffffff; /* Vit bakgrund */
             color: #333;
         }
 
@@ -56,34 +56,35 @@
         }
 
         .verification-content button {
-            background-color: #8EBF2A;
-            color: white;
-            border: none;
+            background-color: transparent;
+            color: #8EBF2A;
+            border: 2px solid #8EBF2A; /* Grön kant för bekräfta-knappen */
             padding: 15px 30px;
             font-size: 1.2rem;
             border-radius: 25px;
             cursor: pointer;
             width: 100%;
             margin-bottom: 10px;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         /* Ändra stil på knappen för minderåriga */
         .verification-content .leave-button {
-            background-color: #f44336;
-            color: white;
-            border-radius: 25px;
+            background-color: transparent;
+            color: #333; /* Svart text */
+            border: 2px solid #333; /* Svart kant */
             font-size: 1.2rem;
             padding: 15px 30px;
             cursor: pointer;
             width: 100%;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         /* Hover-effekt på båda knapparna */
         .verification-content button:hover,
         .verification-content .leave-button:hover {
-            background-color: #6A9C22;
+            background-color: #8EBF2A;
+            color: white;
         }
 
         /* Animation för overlay */
@@ -159,3 +160,4 @@
 
 </body>
 </html>
+
