@@ -1,6 +1,4 @@
 <!-- Åldersverifiering - Klistra in innan </body> i theme.liquid -->
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400&display=swap" rel="stylesheet">
-
 <div id="age-verification-overlay" style="
   position: fixed;
   top: 0;
@@ -28,28 +26,16 @@
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     max-width: 420px;
     width: 90%;
-    box-sizing: border-box;
   ">
     <img src="https://cdn.shopify.com/s/files/1/0875/8788/1305/files/cbdFlora.webp?v=1745136036"
          alt="cbdFlora logotyp"
          style="max-width: 150px; margin: 0 auto 1.5rem auto; display: block;">
 
-    <h2 style="
-      font-size: 1.8rem;
-      color: #8EBF2A;
-      margin-bottom: 1rem;
-      font-weight: 400;
-      font-family: 'DM Sans', sans-serif;
-    ">
+    <h2 style="font-size: 1.8rem; color: #8EBF2A; margin-bottom: 1rem; font-weight: medium; font-family: 'Quincy CF', sans-serif;">
       Hej och välkommen!
     </h2>
 
-    <p style="
-      margin-bottom: 1.5rem;
-      color: #444;
-      font-size: 1rem;
-      line-height: 1.6;
-    ">
+    <p style="margin-bottom: 1.5rem; color: #444; font-size: 1rem; line-height: 1.6;">
       Du måste vara minst 18 år för att besöka vår webbplats.
     </p>
 
@@ -82,47 +68,12 @@
 
 <script>
   function confirmAge() {
-    window.location.href = "https://cbdflora.se"; // Skickar till cbdflora.se
+    window.location.href = "https://cbdflora.se"; // Skickar användaren till cbdflora.se
   }
 
   function leaveSite() {
-    window.location.href = "https://www.google.com"; // Skickar till Google
+    window.location.href = "https://www.google.com"; // Skickar bort dem
   }
 </script>
 
-<style>
-  /* Gör allt responsivt */
-  @media (max-width: 768px) {
-    #age-verification-overlay .container {
-      padding: 2rem 1.5rem;
-      max-width: 90%;
-    }
-    #age-verification-overlay h2 {
-      font-size: 1.5rem;
-    }
-    #age-verification-overlay p {
-      font-size: 0.95rem;
-    }
-    #age-verification-overlay button {
-      font-size: 0.95rem;
-      padding: 0.7rem 1.2rem;
-    }
-  }
-
-  @media (max-width: 480px) {
-    #age-verification-overlay .container {
-      padding: 1.5rem 1rem;
-    }
-    #age-verification-overlay h2 {
-      font-size: 1.4rem;
-    }
-    #age-verification-overlay p {
-      font-size: 0.9rem;
-    }
-    #age-verification-overlay button {
-      font-size: 0.9rem;
-      padding: 0.6rem 1rem;
-    }
-  }
-</style>
 
