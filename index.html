@@ -1,163 +1,103 @@
-<!DOCTYPE html>
-<html lang="sv">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Åldersverifiering</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Arial', sans-serif;
-            background-color: #ffffff; /* Vit bakgrund */
-            color: #333;
-        }
+<!-- Åldersverifiering - Klistra in innan </body> i theme.liquid -->
+<div id="age-verification-overlay" style="
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.7); /* Genomskinlig vit bakgrund */
+  backdrop-filter: blur(10px); /* Lägg till oskärpa på bakgrunden */
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+  font-family: 'Helvetica Neue', sans-serif;
+  visibility: hidden; /* Starta som osynlig */
+  opacity: 0; /* Starta osynlig */
+  transition: opacity 0.2s ease-out; /* Snabbare transition */
+">
+  <div class="container" style="
+    background: #f9f9f9;
+    padding: 2.5rem 2rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    max-width: 420px;
+    width: 90%;
+  ">
+    <!-- Logotyp -->
+    <img src="https://cdn.shopify.com/s/files/1/0875/8788/1305/files/cbdFlora.webp?v=1745136036"
+         alt="cbdFlora logotyp"
+         style="max-width: 150px; margin: 0 auto 1.5rem auto; display: block;">
 
-        /* Åldersverifiering overlay */
-        #age-verification-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            visibility: visible;
-            opacity: 1;
-            transition: opacity 0.5s ease, visibility 0.5s ease;
-        }
+    <!-- Titel -->
+    <h2 style="font-size: 1.8rem; color: #8EBF2A; margin-bottom: 1rem; font-weight: medium; font-family: 'Quincy CF', sans-serif;">
+      Hej och välkommen!
+    </h2>
+    
+    <!-- Text -->
+    <p style="margin-bottom: 1.5rem; color: #444; font-size: 1rem; line-height: 1.6;">
+      Du måste vara minst 18 år för att besöka vår webbplats.
+    </p>
 
-        .verification-content {
-            background-color: #ffffff;
-            padding: 40px;
-            border-radius: 10px;
-            width: 90%;
-            max-width: 400px;
-            text-align: center;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2), 0 0 10px rgba(0, 0, 0, 0.1);
-            border: 2px solid #ccc; /* Grå kant */
-            animation: fadeIn 0.5s ease-in-out;
-        }
+    <!-- Knappsektion -->
+    <div style="display: flex; flex-direction: column; gap: 1rem;">
+      <button onclick="confirmAge()" style="
+        background-color: #8EBF2A;
+        color: white;
+        border: none;
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
+        font-weight: bold;
+        border-radius: 30px; /* Rundade hörn med 30px */
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      ">Jag är 18 år eller äldre</button>
 
-        .verification-content h2 {
-            color: #8EBF2A;
-            font-size: 2rem;
-            margin-bottom: 20px;
-            font-weight: 600;
-        }
-
-        .verification-content p {
-            font-size: 1.2rem;
-            color: #444;
-            margin-bottom: 20px;
-        }
-
-        .verification-content button {
-            background-color: transparent;
-            color: #8EBF2A;
-            border: 2px solid #8EBF2A; /* Grön kant för bekräfta-knappen */
-            padding: 15px 30px;
-            font-size: 1.2rem;
-            border-radius: 25px;
-            cursor: pointer;
-            width: 100%;
-            margin-bottom: 10px;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-
-        /* Ändra stil på knappen för minderåriga */
-        .verification-content .leave-button {
-            background-color: transparent;
-            color: #333; /* Svart text */
-            border: 2px solid #333; /* Svart kant */
-            font-size: 1.2rem;
-            padding: 15px 30px;
-            cursor: pointer;
-            width: 100%;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-
-        /* Hover-effekt på båda knapparna */
-        .verification-content button:hover,
-        .verification-content .leave-button:hover {
-            background-color: #8EBF2A;
-            color: white;
-        }
-
-        /* Animation för overlay */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        /* Responsivitet */
-        @media (max-width: 600px) {
-            .verification-content {
-                width: 85%;
-            }
-
-            .verification-content h2 {
-                font-size: 1.6rem;
-            }
-
-            .verification-content p {
-                font-size: 1rem;
-            }
-
-            .verification-content button,
-            .verification-content .leave-button {
-                font-size: 1rem;
-                padding: 12px 25px;
-            }
-        }
-    </style>
-</head>
-<body>
-
-    <!-- Åldersverifiering overlay -->
-    <div id="age-verification-overlay">
-        <div class="verification-content">
-            <h2>Välkommen</h2>
-            <p>Du måste vara 18 år eller äldre för att fortsätta.</p>
-            <!-- Knappar för att bekräfta ålder eller lämna sidan -->
-            <button onclick="confirmAge()">Jag är 18 år eller äldre</button>
-            <button class="leave-button" onclick="leaveSite()">Jag är under 18 år</button>
-        </div>
+      <button onclick="leaveSite()" style="
+        background-color: #eee;
+        color: #555;
+        border: 1px solid #ccc;
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
+        border-radius: 30px; /* Rundade hörn med 30px */
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      ">Nej, lämna sidan</button>
     </div>
+  </div>
+</div>
 
-    <script>
-        // När användaren bekräftar sin ålder
-        function confirmAge() {
-            // Ta bort åldersverifieringsoverlayen med en mjuk övergång
-            let overlay = document.getElementById('age-verification-overlay');
-            overlay.style.opacity = '0';
-            setTimeout(function() {
-                overlay.style.visibility = 'hidden';
-            }, 500); // Vänta tills animationen är klar innan overlay tas bort
+<script>
+  // Kontrollera om åldersverifieringen redan är godkänd
+  function confirmAge() {
+    localStorage.setItem('ageVerified', 'true');
+    document.getElementById('age-verification-overlay').style.opacity = '0'; // Göm overlay snabbt
+    setTimeout(function() {
+      document.getElementById('age-verification-overlay').style.visibility = 'hidden'; // Göm helt efter animationen
+      document.body.style.overflow = 'auto'; // Återaktivera rullning
+    }, 200); // Samma tid som transitionen (200ms)
+  }
 
-            // Skicka användaren vidare till den valda sidan
-            window.location.href = "https://example.com"; // Byt ut länken här om det behövs
-        }
+  function leaveSite() {
+    window.location.href = "https://www.google.com"; // ← Ändra till valfri extern sida
+  }
 
-        // När användaren inte är 18 år eller äldre, lämnar sidan
-        function leaveSite() {
-            // Ta bort åldersverifieringsoverlayen med en mjuk övergång
-            let overlay = document.getElementById('age-verification-overlay');
-            overlay.style.opacity = '0';
-            setTimeout(function() {
-                overlay.style.visibility = 'hidden';
-                window.location.href = "https://www.google.com"; // Skicka användaren till Google
-            }, 500); // Vänta tills animationen är klar innan sidan lämnas
-        }
-    </script>
-
-</body>
-</html>
-
+  window.addEventListener('load', function () {
+    const isVerified = localStorage.getItem('ageVerified');
+    
+    // Om åldern redan är verifierad, döljs åldersverifieringen direkt
+    if (isVerified) {
+      document.getElementById('age-verification-overlay').style.visibility = 'hidden'; // Döljer direkt
+      document.getElementById('age-verification-overlay').style.opacity = '0'; // Gör den osynlig direkt
+      document.body.style.overflow = 'auto'; // Återaktivera rullning
+    } else {
+      // Om åldersverifiering inte är godkänd, visa overlayn direkt
+      document.getElementById('age-verification-overlay').style.visibility = 'visible';
+      document.getElementById('age-verification-overlay').style.opacity = '1'; // Gör den synlig direkt
+      document.body.style.overflow = 'hidden'; // Förhindra rullning tills verifiering är gjord
+    }
+  });
+</script>
