@@ -13,7 +13,8 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      height: 100dvh; /* Dynamisk höjd för bättre mobilanpassning */
+      overflow: hidden; /* Hindra scroll */
     }
     .container {
       background-color: #ffffff;
@@ -46,7 +47,7 @@
     }
     .btn:hover {
       background-color: #6f991f; /* Lite mörkare version vid hover */
- }
+    }
     .btn-secondary {
       background-color: transparent;
       color: #000000;
@@ -72,9 +73,6 @@
     function deny() {
       alert("Du måste vara över 18 år för att fortsätta.");
     }
-  </script>
-</body>
-</html>
   </script>
 </body>
 </html>
