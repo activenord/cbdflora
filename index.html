@@ -1,4 +1,6 @@
 <!-- Åldersverifiering - Klistra in innan </body> i theme.liquid -->
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400&display=swap" rel="stylesheet">
+
 <div id="age-verification-overlay" style="
   position: fixed;
   top: 0;
@@ -9,33 +11,44 @@
   backdrop-filter: blur(10px);
   z-index: 9999;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 2rem;
-  font-family: 'Helvetica Neue', sans-serif;
+  font-family: 'DM Sans', sans-serif;
   visibility: visible;
   opacity: 1;
   transition: opacity 0.2s ease-out;
+  overflow-y: auto;
 ">
   <div class="container" style="
     background: #f9f9f9;
-    padding: 2.5rem 2rem;
+    padding: 2rem;
     border-radius: 20px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    max-width: 420px;
     width: 90%;
+    max-width: 400px;
+    box-sizing: border-box;
+    margin: 2rem;
   ">
     <img src="https://cdn.shopify.com/s/files/1/0875/8788/1305/files/cbdFlora.webp?v=1745136036"
          alt="cbdFlora logotyp"
-         style="max-width: 150px; margin: 0 auto 1.5rem auto; display: block;">
+         style="max-width: 140px; margin: 0 auto 1.5rem; display: block;">
 
-    <h2 style="font-size: 1.8rem; color: #8EBF2A; margin-bottom: 1rem; font-weight: medium; font-family: 'Quincy CF', sans-serif;">
+    <h2 style="
+      font-size: 1.8rem;
+      color: #8EBF2A;
+      margin-bottom: 1rem;
+      font-weight: 400;
+    ">
       Hej och välkommen!
     </h2>
 
-    <p style="margin-bottom: 1.5rem; color: #444; font-size: 1rem; line-height: 1.6;">
+    <p style="
+      margin-bottom: 1.5rem;
+      color: #444;
+      font-size: 1rem;
+      line-height: 1.5;
+    ">
       Du måste vara minst 18 år för att besöka vår webbplats.
     </p>
 
@@ -68,12 +81,53 @@
 
 <script>
   function confirmAge() {
-    window.location.href = "https://cbdflora.se"; // Skickar användaren till cbdflora.se
+    window.location.href = "https://cbdflora.se";
   }
 
   function leaveSite() {
-    window.location.href = "https://www.google.com"; // Skickar bort dem
+    window.location.href = "https://www.google.com";
   }
 </script>
 
+<style>
+  /* Gör container responsiv på ALLA enheter */
+  @media (max-width: 768px) {
+    #age-verification-overlay .container {
+      padding: 1.5rem;
+      max-width: 90%;
+      margin: 1rem;
+    }
+    #age-verification-overlay h2 {
+      font-size: 1.5rem;
+    }
+    #age-verification-overlay p {
+      font-size: 0.95rem;
+    }
+    #age-verification-overlay button {
+      font-size: 0.95rem;
+      padding: 0.7rem 1.2rem;
+    }
+  }
 
+  @media (max-width: 480px) {
+    #age-verification-overlay .container {
+      padding: 1rem;
+      max-width: 95%;
+      margin: 0.5rem;
+    }
+    #age-verification-overlay h2 {
+      font-size: 1.3rem;
+    }
+    #age-verification-overlay p {
+      font-size: 0.9rem;
+    }
+    #age-verification-overlay button {
+      font-size: 0.9rem;
+      padding: 0.6rem 1rem;
+    }
+    #age-verification-overlay img {
+      max-width: 120px;
+      margin-bottom: 1rem;
+    }
+  }
+</style>
