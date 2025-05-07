@@ -7,9 +7,10 @@
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
+
     gtag('config', 'AW-17055290930');
   </script>
-
+  
   <!-- Meta Pixel Code -->
   <script>
     !function(f,b,e,v,n,t,s)
@@ -27,10 +28,9 @@
   src="https://www.facebook.com/tr?id=1602398350422066&ev=PageView&noscript=1"
   /></noscript>
   <!-- End Meta Pixel Code -->
-
+  
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="robots" content="noindex">
   <title>Bekräfta din ålder</title>
   <style>
     body {
@@ -133,8 +133,8 @@
   <div class="container">
     <h1>Är du över 18 år?</h1>
     <p>Du måste vara över 18 år för att använda den här webbplatsen</p>
-    <button class="btn" onclick="redirect()" aria-label="Bekräfta att du är över 18 år">Ja</button>
-    <button class="btn btn-secondary" onclick="deny()" aria-label="Avvisa om du är under 18 år">Nej</button>
+    <button class="btn" onclick="redirect()">Ja</button>
+    <button class="btn btn-secondary" onclick="deny()">Nej</button>
     <span class="terms-link" onclick="openModal()">Villkor</span>
   </div>
 
@@ -150,17 +150,37 @@
 
   <script>
     function redirect() {
-      window.location.href = "https://cbdflora.se/collections/cbd-olja";
+      fetch("https://ipapi.co/json/")
+        .then(response => response.json())
+        .then(data => {
+          if (data.country === "SE") {
+            window.location.href = "https://cbdflora.se/collections/cbd-olja";
+          } else if (data.country === "GB") {
+            window.location.href = "https://cbdflora.com/collections/cbd-oil";
+          } else {
+            window.location.href = "https://cbdflora.shop/";
+          }
+        })
+        .catch(error => {
+          console.error("Geo lookup failed", error);
+          // Om geo-failar, skicka till engelska som standard
+          window.location.href = "https://cbdflora.shop/";
+        });
     }
+
     function deny() {
       alert("Du måste vara över 18 år för att fortsätta.");
     }
+
     function openModal() {
       document.getElementById('termsModal').style.display = 'block';
     }
+
     function closeModal() {
       document.getElementById('termsModal').style.display = 'none';
     }
+
+    // Stäng modalen om man klickar utanför innehållet
     window.onclick = function(event) {
       var modal = document.getElementById('termsModal');
       if (event.target == modal) {
@@ -168,29 +188,6 @@
       }
     }
 
-    // Geo-baserad språkväxling
-    fetch("https://ipapi.co/json/")
-      .then(response => response.json())
-      .then(data => {
-        if (data.country !== "SE") {
-          document.querySelector("html").lang = "en";
-          document.querySelector("h1").textContent = "Are you over 18?";
-          document.querySelector("p").textContent = "You must be over 18 to use this website.";
-          document.querySelector(".btn").textContent = "Yes";
-          document.querySelector(".btn-secondary").textContent = "No";
-          document.querySelector(".terms-link").textContent = "Terms";
-          document.querySelector(".modal-content").innerHTML = `
-            <span class="close" onclick="closeModal()">&times;</span>
-            <hr>
-            <p><strong>Disclaimer:</strong> This website is intended for informational purposes only and directed solely to individuals over 18 years of age. We provide general information about plant-based products and natural lifestyle. Nothing on this site constitutes medical advice or health claims. Visitors are responsible for their own decisions and actions after leaving this site.</p>
-            <p>By continuing, you confirm that you are of legal age and take full responsibility for any information you choose to access beyond this page.</p>
-          `;
-        }
-      })
-      .catch(error => {
-        console.error("Geo lookup failed", error);
-      });
   </script>
 </body>
 </html>
-
