@@ -2,34 +2,35 @@
 <html lang="sv">
 <head>
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=AW-17055290930">
-</script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17055290930"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'AW-17055290930');
+  </script>
 
-  gtag('config', 'AW-17055290930');
-</script>
   <!-- Meta Pixel Code -->
-<script>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '1602398350422066');
-fbq('track', 'PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=1602398350422066&ev=PageView&noscript=1"
-/></noscript>
-<!-- End Meta Pixel Code -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1602398350422066');
+    fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=1602398350422066&ev=PageView&noscript=1"
+  /></noscript>
+  <!-- End Meta Pixel Code -->
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
   <title>Bekräfta din ålder</title>
   <style>
     body {
@@ -93,7 +94,7 @@ src="https://www.facebook.com/tr?id=1602398350422066&ev=PageView&noscript=1"
       cursor: pointer;
     }
     .modal {
-      display: none; /* Göm från början */
+      display: none;
       position: fixed;
       z-index: 999;
       left: 0;
@@ -132,8 +133,8 @@ src="https://www.facebook.com/tr?id=1602398350422066&ev=PageView&noscript=1"
   <div class="container">
     <h1>Är du över 18 år?</h1>
     <p>Du måste vara över 18 år för att använda den här webbplatsen</p>
-    <button class="btn" onclick="redirect()">Ja</button>
-    <button class="btn btn-secondary" onclick="deny()">Nej</button>
+    <button class="btn" onclick="redirect()" aria-label="Bekräfta att du är över 18 år">Ja</button>
+    <button class="btn btn-secondary" onclick="deny()" aria-label="Avvisa om du är under 18 år">Nej</button>
     <span class="terms-link" onclick="openModal()">Villkor</span>
   </div>
 
@@ -160,39 +161,36 @@ src="https://www.facebook.com/tr?id=1602398350422066&ev=PageView&noscript=1"
     function closeModal() {
       document.getElementById('termsModal').style.display = 'none';
     }
-    // Stäng modalen om man klickar utanför innehållet
     window.onclick = function(event) {
       var modal = document.getElementById('termsModal');
       if (event.target == modal) {
         modal.style.display = "none";
       }
     }
-    <script>
+
+    // Geo-baserad språkväxling
+    fetch("https://ipapi.co/json/")
+      .then(response => response.json())
+      .then(data => {
+        if (data.country !== "SE") {
+          document.querySelector("html").lang = "en";
+          document.querySelector("h1").textContent = "Are you over 18?";
+          document.querySelector("p").textContent = "You must be over 18 to use this website.";
+          document.querySelector(".btn").textContent = "Yes";
+          document.querySelector(".btn-secondary").textContent = "No";
+          document.querySelector(".terms-link").textContent = "Terms";
+          document.querySelector(".modal-content").innerHTML = `
+            <span class="close" onclick="closeModal()">&times;</span>
+            <hr>
+            <p><strong>Disclaimer:</strong> This website is intended for informational purposes only and directed solely to individuals over 18 years of age. We provide general information about plant-based products and natural lifestyle. Nothing on this site constitutes medical advice or health claims. Visitors are responsible for their own decisions and actions after leaving this site.</p>
+            <p>By continuing, you confirm that you are of legal age and take full responsibility for any information you choose to access beyond this page.</p>
+          `;
+        }
+      })
+      .catch(error => {
+        console.error("Geo lookup failed", error);
+      });
   </script>
 </body>
 </html>
-<script>
-  fetch("https://ipapi.co/json/")
-    .then(response => response.json())
-    .then(data => {
-      if (data.country !== "SE") {
-        // Byt till engelska
-        document.querySelector("html").lang = "en";
-        document.querySelector("h1").textContent = "Are you over 18?";
-        document.querySelector("p").textContent = "You must be over 18 to use this website.";
-        document.querySelector(".btn").textContent = "Yes";
-        document.querySelector(".btn-secondary").textContent = "No";
-        document.querySelector(".terms-link").textContent = "Terms";
-        document.querySelector(".modal-content").innerHTML = `
-          <span class="close" onclick="closeModal()">&times;</span>
-          <hr>
-          <p><strong>Disclaimer:</strong> This website is intended for informational purposes only and directed solely to individuals over 18 years of age. We provide general information about plant-based products and natural lifestyle. Nothing on this site constitutes medical advice or health claims. Visitors are responsible for their own decisions and actions after leaving this site.</p>
-          <p>By continuing, you confirm that you are of legal age and take full responsibility for any information you choose to access beyond this page.</p>
-        `;
-      }
-    })
-    .catch(error => {
-      console.error("Geo lookup failed", error);
-    });
-</script>
-</body>
+
