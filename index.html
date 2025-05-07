@@ -167,6 +167,31 @@ src="https://www.facebook.com/tr?id=1602398350422066&ev=PageView&noscript=1"
         modal.style.display = "none";
       }
     }
+    <script>
+  fetch("https://ipapi.co/json/")
+    .then(response => response.json())
+    .then(data => {
+      if (data.country !== "SE") {
+        // Byt till engelska
+        document.querySelector("html").lang = "en";
+        document.querySelector("h1").textContent = "Are you over 18?";
+        document.querySelector("p").textContent = "You must be over 18 to use this website.";
+        document.querySelector(".btn").textContent = "Yes";
+        document.querySelector(".btn-secondary").textContent = "No";
+        document.querySelector(".terms-link").textContent = "Terms";
+        document.querySelector(".modal-content").innerHTML = `
+          <span class="close" onclick="closeModal()">&times;</span>
+          <hr>
+          <p><strong>Disclaimer:</strong> This website is intended for informational purposes only and directed solely to individuals over 18 years of age. We provide general information about plant-based products and natural lifestyle. Nothing on this site constitutes medical advice or health claims. Visitors are responsible for their own decisions and actions after leaving this site.</p>
+          <p>By continuing, you confirm that you are of legal age and take full responsibility for any information you choose to access beyond this page.</p>
+        `;
+      }
+    })
+    .catch(error => {
+      console.error("Geo lookup failed", error);
+    });
+</script>
+
   </script>
 </body>
 </html>
