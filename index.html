@@ -147,25 +147,14 @@
       <p>Genom att fortsätta godkänner du att du är myndig och själv tar ansvar för vilken information du väljer att ta del av efter denna sida.</p>
     </div>
   </div>
-
   <script>
     function redirect() {
-      fetch("https://ipapi.co/json/")
-        .then(response => response.json())
-        .then(data => {
-          if (data.country === "SE") {
-            window.location.href = "https://cbdflora.se/collections/cbd-olja";
-          } else if (data.country === "GB") {
-            window.location.href = "https://cbdflora.com/collections/cbd-oil";
-          } else {
-            window.location.href = "https://cbdflora.shop/";
-          }
-        })
-        .catch(error => {
-          console.error("Geo lookup failed", error);
-          // Om geo-failar, skicka till engelska som standard
-          window.location.href = "https://cbdflora.shop/";
-        });
+      const country = sessionStorage.getItem('country');
+      if (country === "SE") {
+        window.location.href = "https://cbdflora.se/collections/cbd-olja";
+      } else {
+        window.location.href = "https://cbdflora.com/collections/cbd-oil";
+      }
     }
 
     function deny() {
@@ -180,7 +169,6 @@
       document.getElementById('termsModal').style.display = 'none';
     }
 
-    // Stäng modalen om man klickar utanför innehållet
     window.onclick = function(event) {
       var modal = document.getElementById('termsModal');
       if (event.target == modal) {
@@ -188,6 +176,31 @@
       }
     }
 
+    // GEO & språk
+    fetch("https://ipapi.co/json/")
+      .then(response => response.json())
+      .then(data => {
+        const country = data.country;
+        sessionStorage.setItem('country', country);
+
+        if (country !== "SE") {
+          document.querySelector("html").lang = "en";
+          document.querySelector("h1").textContent = "Are you over 18?";
+          document.querySelector("p").textContent = "You must be over 18 to use this website.";
+          document.querySelector(".btn").textContent = "Yes";
+          document.querySelector(".btn-secondary").textContent = "No";
+          document.querySelector(".terms-link").textContent = "Terms";
+          document.querySelector(".modal-content").innerHTML = `
+            <span class="close" onclick="closeModal()">&times;</span>
+            <hr>
+            <p><strong>Disclaimer:</strong> This website is intended for informational purposes only and directed solely to individuals over 18 years of age. We provide general information about plant-based products and natural lifestyle. Nothing on this site constitutes medical advice or health claims. Visitors are responsible for their own decisions and actions after leaving this site.</p>
+            <p>By continuing, you confirm that you are of legal age and take full responsibility for any information you choose to access beyond this page.</p>
+          `;
+        }
+      })
+      .catch(error => {
+        console.error("Geo lookup failed", error);
+      });
   </script>
 </body>
 </html>
