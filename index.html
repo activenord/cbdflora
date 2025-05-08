@@ -145,18 +145,40 @@
       <p>Genom att fortsätta godkänner du att du är myndig och själv tar ansvar för vilken information du väljer att ta del av efter denna sida.</p>
     </div>
   </div>
+<!-- HTML-kod här -->
 
- <script>
+<!-- MODAL-knappar och resten -->
+
+<!-- Sätt detta allra sist innan </body>: -->
+<script>
   function redirect() {
-    const country = sessionStorage.getItem('country');
- if (country === "SE" && hostname.includes("cbdflora.com")) {
-  window.location.href = "https://cbdflora.se";
-} else if (country === "DE") {
-  window.location.href = "https://cbdflora.com/de/collections/cbd-oil";
-} else if (country === "FR") {
-  window.location.href = "https://cbdflora.com/fr/collections/cbd-oil";
-}
+    let country = sessionStorage.getItem('country');
+    if (!country) country = "OTHER";
 
+    if (country === "SE") {
+      window.location.href = "https://cbdflora.se/collections/cbd-olja";
+    } else if (country === "DE") {
+      window.location.href = "https://cbdflora.com/de/collections/cbd-oil";
+    } else if (country === "FR") {
+      window.location.href = "https://cbdflora.com/fr/collections/cbd-oil";
+    } else {
+      window.location.href = "https://cbdflora.com/collections/cbd-oil";
+    }
+  }
+
+  fetch("https://ipapi.co/json/")
+    .then((res) => res.json())
+    .then((data) => {
+      const country = data.country;
+      sessionStorage.setItem("country", country);
+    })
+    .catch((err) => {
+      console.error("Kunde inte hämta platsdata:", err);
+      sessionStorage.setItem("country", "OTHER");
+    });
+</script>
+</body>
+</html>
 
   function deny() {
     alert("Du måste vara över 18 år för att fortsätta.");
