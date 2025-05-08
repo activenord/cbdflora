@@ -146,13 +146,11 @@
     </div>
   </div>
 
-<script>
+ <script>
   function redirect() {
     const country = sessionStorage.getItem('country');
     if (country === "SE") {
       window.location.href = "https://cbdflora.se/collections/cbd-olja";
-    } else if (country === "DE") {
-      window.location.href = "https://cbdflora.com/de/collections/cbd-oil";
     } else {
       window.location.href = "https://cbdflora.com/collections/cbd-oil";
     }
@@ -177,6 +175,7 @@
     }
   }
 
+  // Geo redirect och språk
   fetch("https://ipapi.co/json/")
     .then(response => response.json())
     .then(data => {
@@ -185,15 +184,14 @@
 
       const hostname = window.location.hostname;
 
+      // Automatiska omdirigeringar
       if (country === "SE" && hostname.includes("cbdflora.com")) {
         window.location.href = "https://cbdflora.se";
-      } else if (country === "DE" && hostname.includes("cbdflora.se")) {
-        window.location.href = "https://cbdflora.com/de/collections/cbd-oil";
-      } else if (country === "FR" && hostname.includes("cbdflora.se")) {
+      } else if ((country === "DE" || country === "FR") && hostname.includes("cbdflora.se")) {
         window.location.href = "https://cbdflora.com";
       }
 
-      // Språkändringar
+      // Språkändring beroende på land
       if (country === "FR") {
         document.querySelector("html").lang = "fr";
         document.querySelector("h1").textContent = "Avez-vous plus de 18 ans ?";
@@ -220,7 +218,8 @@
           <p><strong>Haftungsausschluss:</strong> Diese Website dient nur zu Informationszwecken und richtet sich ausschließlich an Personen über 18 Jahren. Wir stellen allgemeine Informationen über pflanzliche Produkte und einen natürlichen Lebensstil bereit. Keine Information auf dieser Seite stellt eine medizinische Beratung oder Gesundheitsbehauptung dar. Besucher sind selbst für ihre Entscheidungen und Handlungen nach dem Verlassen dieser Seite verantwortlich.</p>
           <p>Durch die Fortsetzung bestätigen Sie, dass Sie volljährig sind und die volle Verantwortung für alle Informationen übernehmen, auf die Sie über diese Seite hinaus zugreifen.</p>
         ;
-      } else {
+      } else if (country !== "SE") {
+        // Standard för övriga länder = engelska
         document.querySelector("html").lang = "en";
         document.querySelector("h1").textContent = "Are you over 18?";
         document.querySelector("p").textContent = "You must be over 18 to use this website.";
@@ -239,5 +238,3 @@
       console.error("Geo lookup failed", error);
     });
 </script>
-</body>
-</html
