@@ -147,9 +147,24 @@
   </div>
 
   <script>
-function redirect() {
-  let country = sessionStorage.getItem('country') || "INT";
+<script>
+document.addEventListener("DOMContentLoaded", async () => {
+  let country = sessionStorage.getItem("country");
 
+  if (!country) {
+    try {
+      const res = await fetch("https://ipapi.co/json/");
+      const data = await res.json();
+      country = data.country || "INT";
+      sessionStorage.setItem("country", country);
+    } catch (error) {
+      console.error("Geolocation failed:", error);
+      country = "INT";
+      sessionStorage.setItem("country", country);
+    }
+  }
+
+  // Nu gör vi redirect baserat på country
   if (country === "SE") {
     window.location.href = "https://cbdflora.se/collections/cbd-olja";
   } else if (country === "DE") {
@@ -157,9 +172,9 @@ function redirect() {
   } else {
     window.location.href = "https://cbdflora.com/collections/cbd-oil";
   }
-}
-
-
+});
+</script>
+  
     function deny() {
       alert("You must be over 18 to continue.");
     }
