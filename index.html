@@ -213,15 +213,14 @@
           document.getElementById('modalContent').innerHTML = lang[country].modal;
         }
 
-        // Redirect domain if necessary
-        const hostname = window.location.hostname;
-        if (country === "SE" && hostname.includes("cbdflora.com")) {
-          window.location.href = "https://cbdflora.se";
-        } else if (country === "DE" && hostname.includes("cbdflora.se")) {
-          window.location.href = "https://cbdflora.com/de/collections/cbd-oil";
-        } else if (country === "FR" && hostname.includes("cbdflora.se")) {
-          window.location.href = "https://cbdflora.com";
-        }
+    if (country === "SE" && hostname !== "cbdflora.se") {
+  window.location.href = "https://cbdflora.se";
+} else if (country === "DE" && !(hostname === "cbdflora.com" && pathname.startsWith("/de"))) {
+  window.location.href = "https://cbdflora.com/de/collections/cbd-oil";
+} else if (country === "FR" && hostname !== "cbdflora.com") {
+  window.location.href = "https://cbdflora.com";
+}
+
 
         // Visa innehåll efter laddning
         document.body.style.display = "flex";
