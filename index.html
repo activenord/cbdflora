@@ -1,34 +1,6 @@
 <!DOCTYPE html>
 <html lang="sv">
 <head>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17055290930"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'AW-17055290930');
-  </script>
-
-  <!-- Meta Pixel Code -->
-  <script>
-    !function(f,b,e,v,n,t,s)
-    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-    n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)}(window, document,'script',
-    'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '1602398350422066');
-    fbq('track', 'PageView');
-  </script>
-  <noscript>
-    <img height="1" width="1" style="display:none"
-      src="https://www.facebook.com/tr?id=1602398350422066&ev=PageView&noscript=1" />
-  </noscript>
-  <!-- End Meta Pixel Code -->
-
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Bekräfta din ålder</title>
@@ -41,8 +13,8 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100dvh;
-      overflow: hidden;
+      height: 100dvh; /* Dynamisk höjd för bättre mobilanpassning */
+      overflow: hidden; /* Hindra scroll */
     }
     .container {
       background-color: #ffffff;
@@ -55,14 +27,14 @@
     }
     h1 {
       margin-bottom: 20px;
-      color: #8EBF2A;
+      color: #8EBF2A; /* NY färg här */
     }
     p {
       margin-bottom: 30px;
       color: #555;
     }
     .btn {
-      background-color: #8EBF2A;
+      background-color: #8EBF2A; /* NY färg här */
       color: #ffffff;
       padding: 12px 24px;
       border: none;
@@ -74,7 +46,7 @@
       transition: background-color 0.3s ease;
     }
     .btn:hover {
-      background-color: #6f991f;
+      background-color: #6f991f; /* Lite mörkare version vid hover */
     }
     .btn-secondary {
       background-color: transparent;
@@ -84,48 +56,6 @@
     .btn-secondary:hover {
       background-color: #999999;
     }
-    .terms-link {
-      display: block;
-      margin-top: 20px;
-      font-size: 14px;
-      color: #555;
-      text-decoration: underline;
-      cursor: pointer;
-    }
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 999;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      overflow: auto;
-      background-color: rgba(0,0,0,0.5);
-    }
-    .modal-content {
-      background-color: #fff;
-      margin: 10% auto;
-      padding: 30px;
-      border-radius: 16px;
-      max-width: 500px;
-      text-align: left;
-      color: #666;
-      font-size: 14px;
-      position: relative;
-    }
-    .close {
-      color: #aaa;
-      position: absolute;
-      top: 10px;
-      right: 20px;
-      font-size: 28px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    .close:hover {
-      color: #000;
-    }
   </style>
 </head>
 <body>
@@ -134,107 +64,15 @@
     <p>Du måste vara över 18 år för att använda den här webbplatsen</p>
     <button class="btn" onclick="redirect()">Ja</button>
     <button class="btn btn-secondary" onclick="deny()">Nej</button>
-    <span class="terms-link" onclick="openModal()">Villkor</span>
   </div>
 
-  <div id="termsModal" class="modal">
-    <div class="modal-content">
-      <span class="close" onclick="closeModal()">&times;</span>
-      <hr>
-      <p><strong>Ansvarsfriskrivning:</strong> Denna webbplats är avsedd för informationssyfte och riktar sig endast till personer över 18 år. Vi tillhandahåller allmän information om växtbaserade produkter och naturlig livsstil. Ingen information på denna sida utgör medicinsk rådgivning, rekommendationer eller påstående om hälsofördelar. Besökare ansvarar själva för sina val och handlingar efter att ha lämnat denna webbplats.</p>
-      <p>Genom att fortsätta godkänner du att du är myndig och själv tar ansvar för vilken information du väljer att ta del av efter denna sida.</p>
-    </div>
-  </div>
-
- <script>
-  function redirect() {
-    const country = sessionStorage.getItem('country');
-    if (country === "SE") {
+  <script>
+    function redirect() {
       window.location.href = "https://cbdflora.se/collections/cbd-olja";
-    } else {
-      window.location.href = "https://cbdflora.com/collections/cbd-oil";
     }
-  }
-
-  function deny() {
-    alert("Du måste vara över 18 år för att fortsätta.");
-  }
-
-  function openModal() {
-    document.getElementById('termsModal').style.display = 'block';
-  }
-
-  function closeModal() {
-    document.getElementById('termsModal').style.display = 'none';
-  }
-
-  window.onclick = function(event) {
-    const modal = document.getElementById('termsModal');
-    if (event.target == modal) {
-      modal.style.display = "none";
+    function deny() {
+      alert("Du måste vara över 18 år för att fortsätta.");
     }
-  }
-
-  // Geo redirect och språk
-  fetch("https://ipapi.co/json/")
-    .then(response => response.json())
-    .then(data => {
-      const country = data.country;
-      sessionStorage.setItem('country', country);
-
-      const hostname = window.location.hostname;
-
-      // Automatiska omdirigeringar
-      if (country === "SE" && hostname.includes("cbdflora.com")) {
-        window.location.href = "https://cbdflora.se";
-      } else if ((country === "DE" || country === "FR") && hostname.includes("cbdflora.se")) {
-        window.location.href = "https://cbdflora.com";
-      }
-
-      // Språkändring beroende på land
-      if (country === "FR") {
-        document.querySelector("html").lang = "fr";
-        document.querySelector("h1").textContent = "Avez-vous plus de 18 ans ?";
-        document.querySelector("p").textContent = "Vous devez avoir plus de 18 ans pour utiliser ce site.";
-        document.querySelector(".btn").textContent = "Oui";
-        document.querySelector(".btn-secondary").textContent = "Non";
-        document.querySelector(".terms-link").textContent = "Conditions";
-        document.querySelector(".modal-content").innerHTML = 
-          <span class="close" onclick="closeModal()">&times;</span>
-          <hr>
-          <p><strong>Avertissement :</strong> Ce site est destiné uniquement à des fins informatives et s'adresse exclusivement aux personnes de plus de 18 ans. Nous fournissons des informations générales sur les produits à base de plantes et un mode de vie naturel. Aucune information sur ce site ne constitue un avis médical ou des allégations de santé. Les visiteurs sont seuls responsables de leurs décisions et actions après avoir quitté ce site.</p>
-          <p>En continuant, vous confirmez que vous êtes majeur et assumez l'entière responsabilité des informations que vous choisissez de consulter au-delà de cette page.</p>
-        ;
-      } else if (country === "DE") {
-        document.querySelector("html").lang = "de";
-        document.querySelector("h1").textContent = "Sind Sie über 18 Jahre alt?";
-        document.querySelector("p").textContent = "Sie müssen über 18 Jahre alt sein, um diese Website zu nutzen.";
-        document.querySelector(".btn").textContent = "Ja";
-        document.querySelector(".btn-secondary").textContent = "Nein";
-        document.querySelector(".terms-link").textContent = "Bedingungen";
-        document.querySelector(".modal-content").innerHTML = 
-          <span class="close" onclick="closeModal()">&times;</span>
-          <hr>
-          <p><strong>Haftungsausschluss:</strong> Diese Website dient nur zu Informationszwecken und richtet sich ausschließlich an Personen über 18 Jahren. Wir stellen allgemeine Informationen über pflanzliche Produkte und einen natürlichen Lebensstil bereit. Keine Information auf dieser Seite stellt eine medizinische Beratung oder Gesundheitsbehauptung dar. Besucher sind selbst für ihre Entscheidungen und Handlungen nach dem Verlassen dieser Seite verantwortlich.</p>
-          <p>Durch die Fortsetzung bestätigen Sie, dass Sie volljährig sind und die volle Verantwortung für alle Informationen übernehmen, auf die Sie über diese Seite hinaus zugreifen.</p>
-        ;
-      } else if (country !== "SE") {
-        // Standard för övriga länder = engelska
-        document.querySelector("html").lang = "en";
-        document.querySelector("h1").textContent = "Are you over 18?";
-        document.querySelector("p").textContent = "You must be over 18 to use this website.";
-        document.querySelector(".btn").textContent = "Yes";
-        document.querySelector(".btn-secondary").textContent = "No";
-        document.querySelector(".terms-link").textContent = "Terms";
-        document.querySelector(".modal-content").innerHTML = 
-          <span class="close" onclick="closeModal()">&times;</span>
-          <hr>
-          <p><strong>Disclaimer:</strong> This website is intended for informational purposes only and directed solely to individuals over 18 years of age. We provide general information about plant-based products and natural lifestyle. Nothing on this site constitutes medical advice or health claims. Visitors are responsible for their own decisions and actions after leaving this site.</p>
-          <p>By continuing, you confirm that you are of legal age and take full responsibility for any information you choose to access beyond this page.</p>
-        ;
-      }
-    })
-    .catch(error => {
-      console.error("Geo lookup failed", error);
-    });
-</script>
+  </script>
+</body>
+</html>
