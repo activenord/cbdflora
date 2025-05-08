@@ -147,16 +147,18 @@
   </div>
 
   <script>
-    function redirect() {
-      const country = sessionStorage.getItem('country') || "INT";
-      if (country === "SE") {
-        window.location.href = "https://cbdflora.se/collections/cbd-olja";
-      } else if (country === "DE") {
-        window.location.href = "https://cbdflora.com/de/collections/cbd-oil";
-      } else {
-        window.location.href = "https://cbdflora.com/collections/cbd-oil";
-      }
-    }
+function redirect() {
+  let country = sessionStorage.getItem('country') || "INT";
+
+  if (country === "SE") {
+    window.location.href = "https://cbdflora.se/collections/cbd-olja";
+  } else if (country === "DE") {
+    window.location.href = "https://cbdflora.com/de/collections/cbd-oil";
+  } else {
+    window.location.href = "https://cbdflora.com/collections/cbd-oil";
+  }
+}
+
 
     function deny() {
       alert("You must be over 18 to continue.");
