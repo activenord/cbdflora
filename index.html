@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="sv">
+<html lang="de">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Bekräfta din ålder</title>
+  <title>Altersverifikation</title>
   <style>
     body {
       margin: 0;
@@ -13,8 +13,8 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100dvh; /* Dynamisk höjd för bättre mobilanpassning */
-      overflow: hidden; /* Hindra scroll */
+      height: 100dvh;
+      overflow: hidden;
     }
     .container {
       background-color: #ffffff;
@@ -27,14 +27,14 @@
     }
     h1 {
       margin-bottom: 20px;
-      color: #8EBF2A; /* NY färg här */
+      color: #8EBF2A;
     }
     p {
       margin-bottom: 30px;
       color: #555;
     }
     .btn {
-      background-color: #8EBF2A; /* NY färg här */
+      background-color: #8EBF2A;
       color: #ffffff;
       padding: 12px 24px;
       border: none;
@@ -46,7 +46,7 @@
       transition: background-color 0.3s ease;
     }
     .btn:hover {
-      background-color: #6f991f; /* Lite mörkare version vid hover */
+      background-color: #6f991f;
     }
     .btn-secondary {
       background-color: transparent;
@@ -60,18 +60,18 @@
 </head>
 <body>
   <div class="container">
-    <h1>Är du över 18 år?</h1>
-    <p>Du måste vara över 18 år för att använda den här webbplatsen</p>
+    <h1>Bist du über 18 Jahre alt?</h1>
+    <p>Du musst über 18 Jahre alt sein, um diese Website zu nutzen.</p>
     <button class="btn" onclick="redirect()">Ja</button>
-    <button class="btn btn-secondary" onclick="deny()">Nej</button>
+    <button class="btn btn-secondary" onclick="deny()">Nein</button>
   </div>
 
   <script>
     function redirect() {
-      window.location.href = "https://cbdflora.se/collections/cbd-olja";
+      window.location.href = "https://cbdflora.com/de/collections/cbd-oil";
     }
     function deny() {
-      alert("Du måste vara över 18 år för att fortsätta.");
+      alert("Du musst über 18 Jahre alt sein, um fortzufahren.");
     }
   </script>
 </body>
