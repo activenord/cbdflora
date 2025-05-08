@@ -7,10 +7,9 @@
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-
     gtag('config', 'AW-17055290930');
   </script>
-  
+
   <!-- Meta Pixel Code -->
   <script>
     !function(f,b,e,v,n,t,s)
@@ -24,11 +23,12 @@
     fbq('init', '1602398350422066');
     fbq('track', 'PageView');
   </script>
-  <noscript><img height="1" width="1" style="display:none"
-  src="https://www.facebook.com/tr?id=1602398350422066&ev=PageView&noscript=1"
-  /></noscript>
+  <noscript>
+    <img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=1602398350422066&ev=PageView&noscript=1" />
+  </noscript>
   <!-- End Meta Pixel Code -->
-  
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Bekräfta din ålder</title>
@@ -52,7 +52,6 @@
       text-align: center;
       max-width: 400px;
       width: 90%;
-      position: relative;
     }
     h1 {
       margin-bottom: 20px;
@@ -138,7 +137,6 @@
     <span class="terms-link" onclick="openModal()">Villkor</span>
   </div>
 
-  <!-- Modal -->
   <div id="termsModal" class="modal">
     <div class="modal-content">
       <span class="close" onclick="closeModal()">&times;</span>
@@ -147,6 +145,7 @@
       <p>Genom att fortsätta godkänner du att du är myndig och själv tar ansvar för vilken information du väljer att ta del av efter denna sida.</p>
     </div>
   </div>
+
   <script>
     function redirect() {
       const country = sessionStorage.getItem('country');
@@ -170,19 +169,29 @@
     }
 
     window.onclick = function(event) {
-      var modal = document.getElementById('termsModal');
+      const modal = document.getElementById('termsModal');
       if (event.target == modal) {
         modal.style.display = "none";
       }
     }
 
-    // GEO & språk
+    // Geo redirect och språk
     fetch("https://ipapi.co/json/")
       .then(response => response.json())
       .then(data => {
         const country = data.country;
         sessionStorage.setItem('country', country);
 
+        const hostname = window.location.hostname;
+
+        // Automatiska omdirigeringar
+        if (country === "SE" && hostname.includes("cbdflora.com")) {
+          window.location.href = "https://cbdflora.se";
+        } else if ((country === "DE" || country === "FR") && hostname.includes("cbdflora.se")) {
+          window.location.href = "https://cbdflora.com";
+        }
+
+        // Språkändring om ej svensk
         if (country !== "SE") {
           document.querySelector("html").lang = "en";
           document.querySelector("h1").textContent = "Are you over 18?";
